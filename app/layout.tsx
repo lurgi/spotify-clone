@@ -6,6 +6,7 @@ import Sidebar from "@/components/Sidebar";
 import { twMerge } from "tailwind-merge";
 import SupabaseProvider from "@/providers/SupabaseProvider";
 import UserProvider from "@/providers/UserProvider";
+import ModalProvider from "@/providers/ModalProvider";
 
 const figtree = Figtree({ subsets: ["latin"] });
 
@@ -24,6 +25,7 @@ export default function RootLayout({
       <body className={twMerge(figtree.className, "flex h-full")}>
         <SupabaseProvider>
           <UserProvider>
+            <ModalProvider />
             <Sidebar>Side Bar</Sidebar>
             <main className="h-full flex-1 overflow-y-auto py-2 px-2 md:pl-0 ">
               {children}
