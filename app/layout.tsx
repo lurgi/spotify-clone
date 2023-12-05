@@ -8,6 +8,7 @@ import SupabaseProvider from "@/providers/SupabaseProvider";
 import UserProvider from "@/providers/UserProvider";
 import ModalProvider from "@/providers/ModalProvider";
 import ToasterProvider from "@/providers/ToasterProvider";
+import getSongsByUserId from "@/actions/getSongsByUserId";
 
 const figtree = Figtree({ subsets: ["latin"] });
 
@@ -16,11 +17,15 @@ export const metadata: Metadata = {
   description: "Listen to Music",
 };
 
-export default function RootLayout({
+export const revalidate = 0;
+
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const userSongs = await getSongsByUserId();
+
   return (
     <html lang="en">
       <body className={twMerge(figtree.className, "flex h-full")}>
@@ -28,7 +33,7 @@ export default function RootLayout({
         <SupabaseProvider>
           <UserProvider>
             <ModalProvider />
-            <Sidebar>Side Bar</Sidebar>
+            <Sidebar songs={userSongs} />
             <main className="h-full flex-1 overflow-y-auto py-2 px-2 md:pl-0 ">
               {children}
             </main>
