@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { Figtree } from "next/font/google";
 import "./globals.css";
+import { twMerge } from "tailwind-merge";
 
 import Sidebar from "@/components/Sidebar";
-import { twMerge } from "tailwind-merge";
+import Player from "@/components/Player";
+
 import SupabaseProvider from "@/providers/SupabaseProvider";
 import UserProvider from "@/providers/UserProvider";
 import ModalProvider from "@/providers/ModalProvider";
@@ -37,6 +39,7 @@ export default async function RootLayout({
             <main className="h-full flex-1 overflow-y-auto py-2 px-2 md:pl-0 ">
               {children}
             </main>
+            <Player />
           </UserProvider>
         </SupabaseProvider>
       </body>

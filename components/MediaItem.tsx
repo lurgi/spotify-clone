@@ -1,6 +1,8 @@
-import useLoadImage from "@/hooks/useLoadImage";
 import { Song } from "@/types/types";
 import Image from "next/image";
+
+import useLoadImage from "@/hooks/useLoadImage";
+import usePlayer from "@/hooks/usePlayer";
 
 interface MediaItemProps {
   data: Song;
@@ -8,6 +10,7 @@ interface MediaItemProps {
 }
 
 const MediaItem: React.FC<MediaItemProps> = ({ data, onClick }) => {
+  const player = usePlayer();
   const imageUrl = useLoadImage(data);
 
   const handleClick = () => {
@@ -15,14 +18,13 @@ const MediaItem: React.FC<MediaItemProps> = ({ data, onClick }) => {
       return onClick(data.id);
     }
 
-    // TODO : Default turn on player
+    return player.setId(data.id);
   };
   return (
     <div
       onClick={handleClick}
       className="flex items-center gap-x-3 cursor-pointer hover:bg-neutral-800/50 w-full p-2 rounded-md">
       <div className="relative rounded-md min-h-[48px] min-w-[48px] overflow-hidden">
-        {" "}
         <Image
           fill
           src={imageUrl || "/images/liked.png"}
